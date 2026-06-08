@@ -1,0 +1,989 @@
+* {
+    margin: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-y: auto;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #4a90e2;
+    --primary-dark: #357abd;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --dark-bg: #1e1e2f;
+    --light-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #333;
+}
+
+.container {
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-color);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: var(--light-bg);
+}
+
+.status-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    animation: pulse 1.5s infinite;
+}
+
+.status-indicator.online {
+    background: var(--success-color);
+    box-shadow: 0 0 5px var(--success-color);
+}
+
+.status-indicator.offline {
+    background: var(--danger-color);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.settings-panel {
+    background: var(--light-bg);
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.settings-panel h3 {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.setting-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.setting-group label {
+    width: 120px;
+    font-weight: 500;
+}
+
+.setting-group input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.mode-indicator {
+    background: var(--warning-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.mode-indicator.online {
+    background: var(--success-color);
+    color: white;
+}
+
+.info-message {
+    margin-top: 8px;
+    font-size: 13px;
+    min-height: 20px;
+}
+
+.mouse-section {
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+.mouse-section h3 {
+    margin-bottom: 12px;
+}
+
+.mouse-pad-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.mouse-pad {
+    flex: 2;
+    min-width: 300px;
+    height: 250px;
+    background: linear-gradient(145deg, #2d2d3a, #1a1a2a);
+    border-radius: 16px;
+    position: relative;
+    cursor: crosshair;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.mouse-pad.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+}
+
+.mouse-pad-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+}
+
+.mouse-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.mouse-hint {
+    font-size: 12px;
+}
+
+.mouse-controls {
+    flex: 1;
+    min-width: 220px;
+}
+
+.mouse-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.mouse-btn {
+    flex: 1 0 auto;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.left-click {
+    background: #4a90e2;
+    color: white;
+}
+
+.right-click {
+    background: #dc3545;
+    color: white;
+}
+
+.middle-click {
+    background: #6c757d;
+    color: white;
+}
+
+.back-click {
+    background: #17a2b8;
+    color: white;
+}
+
+.forward-click {
+    background: #fd7e14;
+    color: white;
+}
+
+.scroll-btn {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mouse-options {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.mouse-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.keyboard-section {
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+.keyboard-section h3 {
+    margin-bottom: 12px;
+}
+
+.keyboard-wrapper {
+    background: #2d2d3a;
+    padding: 15px 0;
+    /* 上下 15px，左右 0 */
+    border-radius: 12px;
+    margin-bottom: 0;
+}
+
+.main-keyboard {
+    width: 100%;
+}
+
+.main-keyboard .key {
+    flex: 1 1 0%;
+    min-width: 30px;
+    height: 55px;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.main-keyboard .key.space {
+    flex: 3 1 0%;
+    min-width: 320px;
+}
+
+.numpad-keyboard {
+    flex: 1;
+    min-width: 200px;
+    background: #2d2d3a;
+}
+
+.numpad-section {
+    margin-top: 20px;
+    background: #2d2d3a;
+    padding: 12px 15px;
+    border-radius: 12px;
+}
+
+.numpad-section h4 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.key {
+    min-width: 45px;
+    height: 45px;
+    background: linear-gradient(145deg, #5a6e7c, #3e4d5c);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.key:active {
+    transform: translateY(2px);
+    background: var(--primary-color);
+}
+
+.key.special {
+    background: linear-gradient(145deg, #4a4a5a, #3a4a5a);
+    font-size: 11px;
+}
+
+.key.space {
+    min-width: 260px;
+}
+
+.key.media {
+    background: linear-gradient(145deg, #5a3a4a, #4a2a3a);
+}
+
+.key.pressed {
+    background: var(--primary-color);
+    transform: translateY(2px);
+}
+
+.key.state-active {
+    background: #28a745;
+    box-shadow: 0 0 5px #28a745;
+}
+
+.numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    background: transparent;
+}
+
+.numpad-key {
+    min-width: unset;
+    width: 100%;
+    height: 50px;
+}
+
+.numpad-key.colspan2 {
+    grid-column: span 2;
+}
+
+.numpad-key.rowspan2 {
+    grid-row: span 2;
+    height: 106px;
+}
+
+.log-section {
+    background: var(--light-bg);
+    border-radius: 12px;
+    padding: 15px;
+    flex-shrink: 0;
+}
+
+.log-section h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.log-content {
+    height: 180px;
+    overflow-y: auto;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 12px;
+    background: #1e1e2f;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.log-entry {
+    padding: 4px 8px;
+    border-bottom: 1px solid #3a3a4a;
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.log-entry.key {
+    color: #4ade80;
+}
+
+.log-entry.mouse {
+    color: #60a5fa;
+}
+
+.log-entry.error {
+    color: #f87171;
+}
+
+.log-entry.system {
+    color: #fbbf24;
+}
+
+.small-btn {
+    padding: 4px 12px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.auto-scroll-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* 修饰键按住状态 */
+.key.modifier-held {
+    background: #ff9800 !important;
+    box-shadow: 0 0 8px #ff9800;
+}
+
+/* 确保所有按钮在点击时不会产生任何文本光标 */
+button:focus,
+.key:focus,
+.numpad-key:focus {
+    outline: none !important;
+}
+
+.keyboard-wrapper,
+.keyboard-section,
+.key,
+.numpad-key,
+.main-key {
+    -webkit-tap-highlight-color: transparent;
+    /* 移除移动端点击灰色/白色背景 */
+    user-select: none;
+    /* 禁止选中文本，避免出现光标 */
+    -webkit-user-select: none;
+    caret-color: transparent;
+    /* 隐藏可能出现的输入光标 */
+}
+
+/* 主键盘按键撑满宽度 */
+.main-keyboard .key-row {
+    display: flex;
+    flex-wrap: nowrap;
+    /* 禁止换行，确保一行铺满 */
+    width: 100%;
+    gap: 6px;
+}
+
+/* 鼠标按住复选框区域 */
+.mouse-hold-options {
+    display: flex;
+    gap: 15px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+}
+
+.hold-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.hold-checkbox input {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* 鼠标速度控制区域 */
+.mouse-speed-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.mouse-speed-control label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.mouse-speed-control input {
+    flex: 1;
+    min-width: 150px;
+}
+
+.mouse-speed-control span {
+    background: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* 键盘禁用样式 */
+.keyboard-toggle {
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.key:disabled {
+    opacity: 0.5;
+    filter: grayscale(0.3);
+    cursor: not-allowed;
+    transform: none;
+    pointer-events: auto;
+}
+
+.key:disabled:active {
+    transform: none;
+    background: linear-gradient(145deg, #5a6e7c, #3e4d5c);
+}
+
+.fullscreen-btn {
+    background: rgba(0, 0, 0, 0.6) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(4px);
+}
+
+.fullscreen-btn:hover {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.numpad-section:fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #2d2d3a;
+    padding: 20px;
+}
+
+.numpad-section:fullscreen .numpad-grid {
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+    gap: 12px;
+}
+
+.numpad-section:fullscreen .numpad-key {
+    height: 80px;
+    font-size: 24px;
+}
+
+.numpad-section:fullscreen .numpad-key.rowspan2 {
+    height: 172px;
+}
+
+.numpad-section:fullscreen h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* 主键盘区全屏样式 */
+.keyboard-wrapper:fullscreen {
+    background: #2d2d3a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.keyboard-wrapper:fullscreen .main-keyboard {
+    width: 95%;
+    max-width: 1400px;
+}
+
+.keyboard-wrapper:fullscreen .key {
+    height: 70px;
+    font-size: 18px;
+    min-width: 55px;
+}
+
+.keyboard-wrapper:fullscreen .key.space {
+    min-width: 350px;
+}
+
+/* 鼠标区全屏样式优化 */
+.mouse-section:fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.mouse-section:fullscreen .mouse-pad {
+    width: 80vw;
+    height: 60vh;
+}
+
+/* 浮动退出按钮样式 */
+.fullscreen-exit-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.fullscreen-exit-btn:hover {
+    background: #dc3545;
+    transform: scale(1.02);
+}
+
+/* 主键盘区域全屏样式 */
+.keyboard-section:fullscreen {
+    background: #2d2d3a;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.keyboard-section:fullscreen h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.keyboard-section:fullscreen .keyboard-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* 全屏下按键自适应文本宽度，防止溢出 */
+.keyboard-section:fullscreen .key {
+    flex: 0 0 auto;
+    min-width: 60px;
+    width: auto;
+    padding: 0 8px;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.keyboard-section:fullscreen .key.space {
+    min-width: 200px;
+    flex: 0 0 auto;
+}
+
+.keyboard-section:fullscreen .key.special {
+    font-size: 12px;
+}
+
+/* 按键行保持横向排列，支持滚动 */
+.keyboard-section:fullscreen .key-row {
+    flex-wrap: nowrap;
+}
+
+#mainKeyboardArea:fullscreen h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* 页脚样式 */
+.app-footer {
+    margin-top: 30px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 13px;
+    color: #6c757d;
+    background-color: var(--light-bg);
+    border-radius: 12px 12px 0 0;
+    flex-shrink: 0;
+}
+
+.app-footer p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.app-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.keyboard-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.main-keyboard .key-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    min-width: min-content;
+}
+
+@media (max-width: 768px) {
+    .app-footer {
+        margin-top: 20px;
+        padding: 12px 15px;
+        font-size: 11px;
+    }
+
+    .key,
+    .numpad-key {
+        min-width: 44px;
+        height: 44px;
+        font-size: 12px;
+        padding: 0 4px;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.2;
+        flex-shrink: 0;
+    }
+
+    .key.special {
+        font-size: 10px;
+        min-width: 38px;
+    }
+
+    .app-footer p {
+        margin: 3px 0;
+    }
+
+    .key.space {
+        min-width: 120px;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    .setting-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .setting-group label {
+        width: auto;
+    }
+
+    .setting-group input {
+        width: 100%;
+    }
+
+    .main-keyboard {
+        min-width: 100%;
+    }
+
+    .numpad-keyboard {
+        min-width: 100%;
+    }
+
+    .keyboard-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .numpad-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+    .numpad-key {
+        min-width: unset;
+        width: 100%;
+        height: 55px;
+        font-size: 14px;
+    }
+
+    .numpad-key.colspan2 {
+        grid-column: span 2;
+    }
+
+    .numpad-key.rowspan2 {
+        grid-row: span 2;
+        height: 118px;
+    }
+
+    .main-keyboard {
+        max-width: 100%;
+    }
+
+    .main-keyboard .key {
+        min-width: 35px;
+        font-size: 11px;
+    }
+
+    .main-keyboard .key.space {
+        flex: 3 1 0%;
+    }
+
+    .numpad-section {
+        margin-top: 15px;
+    }
+
+    .keyboard-section:fullscreen .key,
+    .numpad-section:fullscreen .numpad-key {
+        min-width: 55px;
+        height: 65px;
+        font-size: 16px;
+        white-space: normal;
+    }
+
+    .keyboard-section:fullscreen .key.space {
+        min-width: 180px;
+    }
+
+    .keyboard-section:fullscreen .key.special {
+        font-size: 13px;
+    }
+
+    .numpad-section:fullscreen .numpad-grid {
+        gap: 12px;
+    }
+
+    .numpad-section:fullscreen .numpad-key {
+        height: 80px;
+        font-size: 20px;
+    }
+
+    .numpad-section:fullscreen .numpad-key.rowspan2 {
+        height: 172px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .key,
+    .numpad-key {
+        min-width: 38px;
+        height: 40px;
+        font-size: 10px;
+    }
+
+    .key.special {
+        font-size: 9px;
+        min-width: 34px;
+    }
+
+    .key.space {
+        min-width: 90px;
+    }
+
+    .numpad-key {
+        height: 48px;
+        font-size: 13px;
+    }
+
+    .numpad-key.rowspan2 {
+        height: 104px;
+    }
+}
+
+.keyboard-section:fullscreen,
+#mainKeyboardArea:fullscreen {
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.keyboard-section:fullscreen .keyboard-wrapper {
+    overflow-x: auto;
+}
+
+.numpad-section:fullscreen {
+    overflow-y: auto;
+    justify-content: flex-start;
+}

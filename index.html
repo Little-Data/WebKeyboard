@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>在线键盘/鼠标控制系统</title>
+    <link rel="stylesheet" href="style.css">
+     <link rel="shortcut icon" href="favicon.ico"> 
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>在线键盘/鼠标控制系统</h1>
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-indicator offline"></span>
+                <span id="statusText">未连接</span>
+            </div>
+        </header>
+
+        <div class="settings-panel">
+            <h3>连接设置</h3>
+            <div class="setting-group">
+                <label>WebSocket 地址:</label>
+                <input type="text" id="wsUrl" placeholder="ws://127.0.0.1:8765" value="ws://127.0.0.1:8765">
+            </div>
+            <div class="setting-group">
+                <label>连接密钥:</label>
+                <input type="password" id="secret" placeholder="请输入密钥">
+            </div>
+            <div class="setting-group">
+                <label>键盘类型:</label>
+                <select id="systemType">
+                    <option value="win">Windows</option>
+                    <option value="mac">Mac</option>
+                    <option value="linux">Linux</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button id="connectBtn" class="btn-primary">连接</button>
+                <button id="disconnectBtn" class="btn-secondary">断开</button>
+            </div>
+            <div class="info-message" id="infoMessage"></div>
+        </div>
+
+        <div class="mode-indicator" id="modeIndicator">
+            <span>未连接 - 请先连接服务器并完成认证</span>
+        </div>
+
+        <div class="mouse-section">
+            <h3>鼠标控制<button class="fullscreen-btn" data-fullscreen-target=".mouse-section">全屏</button></h3>
+            <div class="mouse-pad-container">
+                <div class="mouse-pad" id="mousePad">
+                    <div class="mouse-pad-overlay">
+                        <div class="mouse-icon">🖱️</div>
+                        <div class="mouse-hint">控制光标区域</div>
+                    </div>
+                </div>
+                <div class="mouse-controls">
+                    <div class="mouse-buttons">
+                        <button class="mouse-btn left-click" data-button="left" data-action="click">左键</button>
+                        <button class="mouse-btn right-click" data-button="right" data-action="click">右键</button>
+                        <button class="mouse-btn middle-click" data-button="middle" data-action="click">中键</button>
+                        <button class="mouse-btn back-click" data-button="x1" data-action="click">后退</button>
+                        <button class="mouse-btn forward-click" data-button="x2" data-action="click">前进</button>
+                    </div>
+                    <div class="mouse-scroll">
+                        <button class="scroll-btn" data-delta="3">▲ 向上滚轮</button>
+                        <button class="scroll-btn" data-delta="-3">▼ 向下滚轮</button>
+                    </div>
+                    <div class="mouse-options">
+                        <label><input type="checkbox" id="enableMouseMove" checked> 启用鼠标移动</label>
+                    </div>
+                    <div class="mouse-hold-options">
+                        <label class="hold-checkbox">
+                            <input type="checkbox" id="holdLeftBtn"> 按住左键
+                        </label>
+                        <label class="hold-checkbox">
+                            <input type="checkbox" id="holdMiddleBtn"> 按住中键
+                        </label>
+                        <label class="hold-checkbox">
+                            <input type="checkbox" id="holdRightBtn"> 按住右键
+                        </label>
+                    </div>
+                    <div class="mouse-speed-control">
+                        <label>鼠标移动速度:</label>
+                        <input type="range" id="mouseSpeedSlider" min="0.2" max="10.0" step="0.05" value="1.0">
+                        <span id="speedValue">1.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="keyboard-section">
+            <div class="main-keyboard-area" id="mainKeyboardArea">
+                <h3>
+                    虚拟键盘控制
+                    <button class="fullscreen-btn" data-fullscreen-target="#mainKeyboardArea">全屏</button>
+                    <label class="keyboard-toggle">
+                        <input type="checkbox" id="enableKeyboardControl" checked> 启用键盘控制
+                    </label>
+                </h3>
+                <div class="keyboard-wrapper" id="keyboardWrapper">
+                    <div class="main-keyboard" id="mainKeyboard"></div>
+                </div>
+            </div>
+            <div class="numpad-section">
+                <h4>数字小键盘<button class="fullscreen-btn" data-fullscreen-target=".numpad-section">全屏</button></h4>
+                <div class="numpad-keyboard" id="numpadKeyboard"></div>
+            </div>
+        </div>
+
+        <div class="log-section">
+            <h3>操作日志 
+                <button id="clearLogBtn" class="small-btn">清空</button>
+                <label class="auto-scroll-label">
+                    <input type="checkbox" id="autoScrollLog" checked> 自动滚动
+                </label>
+            </h3>
+            <div class="log-content" id="logContent"></div>
+        </div>
+        <!-- 页脚区域 -->
+        <footer class="app-footer">
+            <p>HAF半个水果<a href="https://github.com/Little-Data/WebKeyboard" target="_blank">Github</a></p>
+            <p>2026.06.08</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
